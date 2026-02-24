@@ -30,6 +30,20 @@ The perceptron uses three binary features to classify objects:
 
 ## Files
 
+### Notebooks (Recommended for Learning)
+
+Work through these in order for the best learning experience:
+
+| Notebook | Description |
+|----------|-------------|
+| [`01_perceptron_from_scratch.ipynb`](01_perceptron_from_scratch.ipynb) | Build a perceptron using pure Python — understand every line of the algorithm |
+| [`02_perceptron_with_numpy.ipynb`](02_perceptron_with_numpy.ipynb) | Re-implement with NumPy — learn dot products and vectorised operations |
+| [`03_visualising_the_perceptron.ipynb`](03_visualising_the_perceptron.ipynb) | Visualise decision boundaries, training dynamics, XOR failure, and 3-D planes |
+
+### Python Scripts
+
+Standalone scripts that can be run directly from the command line:
+
 ### `basic_perceptron_example.py`
 Basic implementation using pure Python with explicit mathematical operations. Best for understanding the underlying mathematics step-by-step.
 
@@ -51,12 +65,17 @@ Optimized implementation using NumPy with vectorized operations. Shows how neura
 
 ## Requirements
 
-**For basic version:**
+**For basic version / Notebook 1:**
 - Python 3.6+
 
-**For NumPy version:**
+**For NumPy version / Notebook 2:**
 - Python 3.6+
 - NumPy (`pip install numpy`)
+
+**For visualisation / Notebook 3:**
+- Python 3.6+
+- NumPy
+- Matplotlib (`pip install matplotlib`)
 
 ## Installation
 
