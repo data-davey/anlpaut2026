@@ -1,6 +1,10 @@
+datasets
 ipykernel
 ipywidgets
 matplotlib
 numpy
+pandas
+scikit-learn
+seaborn
 torch
 transformers
