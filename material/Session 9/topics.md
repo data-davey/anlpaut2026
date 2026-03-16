@@ -3,14 +3,40 @@ Week 10
 Session 9
 
 topics:
-- AI Agents
-- Multi Agent Frameworks
-- Hands on
+- Agentic RAG (bridge from Session 8)
+- AI Agents (augmented LLM, workflow patterns — Anthropic framework)
+- Multi-Agent Frameworks (OpenAI Agents SDK hands-on; LangGraph/CrewAI conceptually)
+- Hands-on: Build a simple agent with tools
 
+## Notes
 
-# References
+- Open with Agentic RAG recap — positions agents as a natural extension of the RAG pipeline from Session 8
+- Core reference: Anthropic "Building Effective Agents" — https://www.anthropic.com/engineering/building-effective-agents
+- `responses api and vector store.md` in this folder is split-use: §1–3 and §5–8 (Responses API, Vector Stores) belong to Session 8; §4 (OpenAI Agents SDK) belongs here
+- Multi-agent frameworks: cover OpenAI Agents SDK hands-on; describe LangGraph and CrewAI conceptually so students can evaluate them independently
 
-https://www.anthropic.com/engineering/building-effective-agents
+## Workflow Patterns (from Anthropic article)
+
+| Pattern | Description |
+|---|---|
+| Augmented LLM | LLM extended with tools, retrieval, and memory — the core building block |
+| Prompt chaining | Sequential LLM calls; output of one is input of next |
+| Routing | Classify input and direct to a specialised sub-task |
+| Parallelization | Run independent sub-tasks concurrently |
+| Orchestrator-workers | Central orchestrator delegates to worker agents |
+| Evaluator-optimizer | One agent generates, another evaluates and requests improvement |
+
+## Planned Notebooks
+
+- `notebooks/01_agents_concepts.ipynb` — Agentic RAG recap; implement each Anthropic workflow pattern as a short code example
+- `notebooks/02_agent_with_tools.ipynb` — OpenAI Agents SDK: build an agent with 2–3 tools; orchestrator-workers demo; reflection on tool description quality
+
+## References
+
+- Anthropic. "Building Effective Agents." https://www.anthropic.com/engineering/building-effective-agents
+- Asai, A. et al. (2023). "Self-RAG." ICLR 2024.
+- Trivedi, H. et al. (2023). "IRCoT." ACL.
+- `responses api and vector store.md` §4 — OpenAI Agents SDK code reference
 
 # Article images
 ![The augmented LLM](https://www.anthropic.com/_next/image?url=https%3A%2F%2Fwww-cdn.anthropic.com%2Fimages%2F4zrzovbb%2Fwebsite%2Fd3083d3f40bb2b6f477901cc9a240738d3dd1371-2401x1000.png&w=3840&q=75)
@@ -39,4 +65,3 @@ _Figure: High-level flow of a coding agent_
 - Positions agents for open-ended tasks needing flexible steps, with strong tool design, guardrails, and sandbox testing.
 - Emphasizes transparent planning, clear agent-computer interfaces, and iterative evaluation.
 - Highlights practical use cases in customer support and coding agents (testable feedback loops).
-
