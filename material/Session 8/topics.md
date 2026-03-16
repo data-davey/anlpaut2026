@@ -3,16 +3,33 @@ Week 9
 Session 8
 
 topics:
-- Building LLM Apps
-- RAG (Retrieval Augmented Generation)
-- Vector Stores: OpenAI Vector Store and FAISS
-- Hands on
+- LLM API Access (OpenAI Chat Completions + Responses API, Claude, Ollama)
+- RAG (Retrieval-Augmented Generation)
+- Vector Stores: FAISS and OpenAI Vector Store
+- Hands-on: Build a minimal RAG app
 
+## Notes
 
-# References
+- Session 8 is where students formally learn LLM API access — builds on the light GitHub Models preview from Session 7
+- Provider swap pattern: show how changing `base_url` + `model` switches between OpenAI, Claude, and Ollama
+- RAG hands-on scoped to one outcome: a working pipeline over a small document set (chunk → embed → FAISS → retrieve → generate)
+- Hybrid search (BM25 + semantic + RRF) and Agentic RAG covered conceptually as production best practice / Session 9 preview
+- `responses api and vector store.md` (in Session 9 folder) contains reference code for the Responses API and vector stores — §1–3 and §5–8 belong to Session 8; §4 (Agents SDK) belongs to Session 9
 
-https://www.youtube.com/watch?v=AS_HlJbJjH8
-https://isragdeadyet.com
+## Planned Notebooks
+
+- `notebooks/01_llm_api_access.ipynb` — OpenAI Chat Completions, Responses API, Claude API, Ollama; provider swap pattern
+- `notebooks/02_rag_with_faiss.ipynb` — chunking, sentence-transformers embeddings, FAISS index, RAG query pipeline, RAG vs. no-RAG comparison
+
+## References
+
+- `vector_similarity.md` — cosine similarity, dot product, unit normalisation explainer
+- Lewis et al. (2020) — RAG paper, NeurIPS
+- Reimers & Gurevych (2019) — Sentence-BERT, EMNLP
+- Johnson et al. (2019) — FAISS paper
+- Robertson et al. (1994) — BM25 (Okapi at TREC-3)
+- RAG Deep Dive video: https://www.youtube.com/watch?v=AS_HlJbJjH8
+- https://isragdeadyet.com
 
 # Video reference notes (RAG Deep Dive: Retrieval Approaches, Agentic Search & Production Trade-offs)
 
@@ -172,6 +189,7 @@ Where:
 - Key finding: BM25 inside an agentic loop can outperform semantic embeddings in single-shot RAG, because the LLM handles semantic variation by rewriting the query itself.
 - Use agentic RAG when accuracy is critical and users can tolerate longer response times. Use single-shot RAG when low latency is required.
 - Agentic RAG also sets a useful upper-bound benchmark — any gap between single-shot and agentic accuracy shows where chunking or retrieval can be improved.
+- **Preview of Session 9:** Agentic RAG is the simplest example of an LLM agent — an LLM using a tool (retrieval) in a loop with self-directed control flow.
 
 **Control loop:**
 
