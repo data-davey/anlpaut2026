@@ -416,16 +416,62 @@ lm_eval --model hf --model_args pretrained=gpt2 --tasks mmlu --num_fewshot 5
 
 ### 6.2 OpenAI Evals
 
-OpenAI's framework for evaluating models against custom and community-contributed tasks.
+OpenAI provides two related but distinct evaluation tools:
 
-```python
-import evals
-# Define an eval with expected completions and run against any model
-```
+**6.2a — Open-source eval framework (GitHub)**
 
-- Supports completion-based, classification, and free-form evals
+The original community framework for running structured evals against OpenAI models. Useful for browsing pre-built evaluation sets.
+
 - Community eval registry — browse and reuse existing evaluation sets
 - GitHub: https://github.com/openai/evals
+
+**6.2b — OpenAI Evals API (platform feature)**
+
+OpenAI's newer API-based evaluation platform, available to API users. Rather than running evals locally, you define the evaluation structure via the API and OpenAI handles the execution. This is particularly relevant as a managed alternative to building your own eval loop (see Section 8).
+
+The core model: an eval = **data source config** (what you're testing on) + **testing criteria** (how you grade the output).
+
+**Grader types** — the building blocks of OpenAI's evaluation system:
+
+| Grader | What it does | When to use |
+|---|---|---|
+| `string_check` | Exact or partial string match (`eq`, `ne`, `like`, `ilike`) | Classification tasks with fixed output labels |
+| `text_similarity` | Scores overlap using BLEU, cosine, fuzzy match, etc. | Summarisation, open-ended generation with a reference |
+| `label_model` | Another LLM classifies the output from a set of labels | Sentiment, intent, category — where output is open text |
+| `score_model` | Another LLM assigns a numeric score to the output | Quality, helpfulness, coherence scoring |
+| `python` | Custom Python `grade(sample, item) -> float` function | Any custom logic that doesn't fit the above |
+
+The simplest grader is `string_check` — it directly mirrors the `exact_match` function in the custom eval loop in Section 8, but configured declaratively:
+
+```json
+{
+    "type": "string_check",
+    "name": "Match output to correct label",
+    "input": "{{ sample.output_text }}",
+    "operation": "eq",
+    "reference": "{{ item.correct_label }}"
+}
+```
+
+The `label_model` grader is the platform-managed version of LLM-as-Judge (Section 7) — you provide a prompt, a list of valid labels, and the model classifies each output:
+
+```json
+{
+    "type": "label_model",
+    "model": "gpt-4o-mini",
+    "name": "Sentiment grader",
+    "input": [
+        {"role": "system", "content": "Classify the sentiment as positive, neutral, or negative."},
+        {"role": "user", "content": "Statement: {{ item.input }}"}
+    ],
+    "labels": ["positive", "neutral", "negative"],
+    "passing_labels": ["positive"]
+}
+```
+
+**Key insight for practitioners:** the OpenAI Evals API formalises the same pattern we build by hand in Section 8. Understanding the DIY version first (test cases → run model → grade → aggregate) makes the platform abstraction much easier to reason about — and helps you know when to reach for a managed tool vs. when to roll your own.
+
+- Docs: https://platform.openai.com/docs/guides/evals
 
 ### 6.3 LangSmith
 
