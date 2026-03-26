@@ -1,7 +1,19 @@
 material/Session */archive/*
+<<<<<<< HEAD
+.env
+.env.*
+=======
+>>>>>>> 1cf8d57cd9976328f2e4459ca6098a9fffc4a192
 **/.claude/*
 **/CLAUDE.md
 **/results/
 **/logs/
 **/scratchpad.md
 **/*.pptx
+<<<<<<< HEAD
+**/.old/*
+.playwright-mcp/
+**/notebooks/*.json
+**/notebooks/*.jsonl
+=======
+>>>>>>> 1cf8d57cd9976328f2e4459ca6098a9fffc4a192
