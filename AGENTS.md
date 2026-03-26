@@ -95,3 +95,13 @@ Occasionally, standalone folders may be created under `material/` outside of ses
 - Add comments where logic is not immediately obvious.
 - Prefer clarity over cleverness.
 - Each session folder must contain a `README.md` explaining what the session covers and how to run the code/notebooks.
+
+---
+
+## AI Assistant Instructions (Claude / Codex)
+
+When the user gives standing instructions or asks to "remember" something:
+1. Save it to the persistent memory system (e.g., `~/.claude/projects/.../memory/`)
+2. **Also update this `AGENTS.md` file** (or another tracked repo file) so the instruction is visible to all tools and collaborators
+
+`CLAUDE.md` is gitignored in this repo — use `AGENTS.md` as the canonical place for tracked AI assistant instructions.
