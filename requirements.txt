@@ -10,3 +10,7 @@ torch
 transformers
 accelerate>=1.1.0
 gradio
+evaluate
+bert-score
+openai
+deepeval
