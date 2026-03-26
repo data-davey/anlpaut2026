@@ -1,7 +1,10 @@
 material/Session */archive/*
+.env
+.env.*
 **/.claude/*
 **/CLAUDE.md
 **/results/
 **/logs/
 **/scratchpad.md
 **/*.pptx
+**/.old/*

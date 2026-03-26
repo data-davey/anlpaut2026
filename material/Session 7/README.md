@@ -30,7 +30,8 @@ See [pre-reading.md](./pre-reading.md) for the student pre-reading guide. Estima
 - For Notebook 1 and Notebook 2 Part 1: no API key needed
 - For Notebook 2 Part 2: GitHub account required for free GitHub Models API access
   - Get a token at: https://github.com/settings/tokens
-  - Set it as: `export GITHUB_TOKEN=your_token_here`
+  - Add it to a `.env` file (for example, in the repo root) as: `GITHUB_TOKEN=your_token_here`
+  - Keep `.env` out of version control and never commit tokens or other secrets
 
 ## Running the Notebooks
 
@@ -45,14 +46,11 @@ See [pre-reading.md](./pre-reading.md) for the student pre-reading guide. Estima
    pip install -r requirements.txt
    ```
 
-3. Launch Jupyter:
-   ```bash
-   jupyter notebook
-   ```
+3. Open the repository in VS Code.
 
-4. Navigate to `material/Session 7/notebooks/`
+4. In VS Code, navigate to `material/Session 7/notebooks/`
 
-5. Start with `01_prompting_techniques.ipynb`
+5. Open `01_prompting_techniques.ipynb` and run it using the course virtual environment as the notebook kernel
 
 ## Notebooks
 
