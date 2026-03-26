@@ -11,6 +11,9 @@ transformers
 accelerate>=1.1.0
 gradio
 evaluate
+absl-py
+nltk
+rouge_score
 bert-score
 openai
 deepeval
