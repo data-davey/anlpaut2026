@@ -18,3 +18,11 @@ rouge_score
 bert-score
 openai
 deepeval
+anthropic
+pypdf
+sentence-transformers
+faiss-cpu
+anthropic
+pypdf
+sentence-transformers
+faiss-cpu
