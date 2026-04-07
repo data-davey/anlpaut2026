@@ -10,7 +10,6 @@ torch
 transformers
 accelerate>=1.1.0
 gradio
-<<<<<<< HEAD
 python-dotenv
 evaluate
 absl-py
@@ -19,5 +18,3 @@ rouge_score
 bert-score
 openai
 deepeval
-=======
->>>>>>> 1cf8d57cd9976328f2e4459ca6098a9fffc4a192
