@@ -22,6 +22,7 @@ anthropic
 pypdf
 sentence-transformers
 faiss-cpu
+streamlit
 anthropic
 pypdf
 sentence-transformers

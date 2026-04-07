@@ -1,0 +1,143 @@
+from __future__ import annotations
+
+import os
+import sys
+from pathlib import Path
+
+import numpy as np
+import streamlit as st
+from dotenv import load_dotenv
+from openai import OpenAI
+from sentence_transformers import SentenceTransformer
+
+
+load_dotenv()
+
+
+CURRENT_FILE = Path(__file__).resolve()
+SESSION_DIR = CURRENT_FILE.parent
+HELPERS_DIR = SESSION_DIR / "helpers"
+if str(HELPERS_DIR) not in sys.path:
+    sys.path.insert(0, str(HELPERS_DIR))
+
+from pdf_utils import extract_pdf_text, join_pages
+from rag_utils import (
+    build_faiss_index,
+    build_grounded_prompt,
+    chunk_text,
+    package_chunks,
+    search_index,
+)
+
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GENERATION_MODEL = os.getenv("SESSION8_MODEL", "gpt-4o-mini")
+EMBEDDING_MODEL = os.getenv("SESSION8_EMBEDDING_MODEL", "text-embedding-3-small")
+
+
+def get_generation_client() -> OpenAI | None:
+    if not OPENAI_API_KEY:
+        return None
+    return OpenAI(api_key=OPENAI_API_KEY)
+
+
+@st.cache_resource
+def load_embedding_backend():
+    if OPENAI_API_KEY:
+        return "openai", OpenAI(api_key=OPENAI_API_KEY)
+    return "local", SentenceTransformer("all-MiniLM-L6-v2")
+
+
+def embed_texts(texts: list[str]) -> np.ndarray:
+    backend_name, backend = load_embedding_backend()
+    if backend_name == "openai":
+        response = backend.embeddings.create(model=EMBEDDING_MODEL, input=texts)
+        return np.array([item.embedding for item in response.data], dtype="float32")
+    return backend.encode(texts, convert_to_numpy=True).astype("float32")
+
+
+@st.cache_resource
+def build_session8_index():
+    pdf_dir = SESSION_DIR / "data" / "pdfs"
+    documents = []
+
+    for pdf_path in sorted(pdf_dir.glob("*.pdf")):
+        pages = extract_pdf_text(pdf_path)
+        full_text = join_pages(pages)
+        chunks = chunk_text(full_text, chunk_size=500, overlap=100)
+        documents.extend(package_chunks(chunks, pdf_path.name))
+
+    chunk_texts = [doc["text"] for doc in documents]
+    embeddings = embed_texts(chunk_texts)
+    index = build_faiss_index(embeddings)
+    return documents, index
+
+
+def retrieve_chunks(question: str, top_k: int = 4) -> list[dict]:
+    documents, index = build_session8_index()
+    query_embedding = embed_texts([question])[0]
+    _, indices = search_index(index, query_embedding, top_k=top_k)
+    return [documents[idx] for idx in indices[0]]
+
+
+def stream_grounded_answer(question: str, top_k: int = 4):
+    client = get_generation_client()
+    if client is None:
+        yield "OPENAI_API_KEY is required for the Streamlit RAG app."
+        return
+
+    retrieved_chunks = retrieve_chunks(question, top_k=top_k)
+    prompt = build_grounded_prompt(question, retrieved_chunks)
+
+    stream = client.responses.create(
+        model=GENERATION_MODEL,
+        instructions=(
+            "Use only the retrieved context. If the answer is not supported by the context, "
+            "say you do not have enough information."
+        ),
+        input=prompt,
+        stream=True,
+    )
+
+    for event in stream:
+        if event.type == "response.output_text.delta":
+            yield event.delta
+
+
+st.set_page_config(page_title="Session 8 RAG App", page_icon=":books:")
+st.title("Session 8 Streamlit RAG App")
+st.caption("Streaming grounded answers over the Session 8 handbook and policy PDF corpus.")
+
+top_k = st.sidebar.slider("Top-k retrieved chunks", min_value=2, max_value=6, value=4)
+st.sidebar.markdown(f"Generation model: `{GENERATION_MODEL}`")
+
+if "messages" not in st.session_state:
+    st.session_state.messages = []
+
+if "last_sources" not in st.session_state:
+    st.session_state.last_sources = []
+
+for message in st.session_state.messages:
+    with st.chat_message(message["role"]):
+        st.markdown(message["content"])
+
+if prompt := st.chat_input("Ask about the handbook or benefits documents"):
+    st.session_state.messages.append({"role": "user", "content": prompt})
+
+    with st.chat_message("user"):
+        st.markdown(prompt)
+
+    retrieved = retrieve_chunks(prompt, top_k=top_k)
+    st.session_state.last_sources = retrieved
+
+    with st.chat_message("assistant"):
+        response_text = st.write_stream(stream_grounded_answer(prompt, top_k=top_k))
+
+    st.session_state.messages.append({"role": "assistant", "content": response_text})
+
+if st.session_state.last_sources:
+    with st.expander("Retrieved sources from the latest answer", expanded=False):
+        for chunk in st.session_state.last_sources:
+            st.markdown(f"**{chunk['source_file']} | chunk {chunk['chunk_id']}**")
+            st.write(chunk["text"][:800] + ("..." if len(chunk["text"]) > 800 else ""))
+            st.divider()

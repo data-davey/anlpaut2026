@@ -4,22 +4,28 @@ Session 8
 
 topics:
 - LLM API Access (OpenAI Chat Completions + Responses API, Claude, Ollama)
+- Streaming Responses for apps
 - RAG (Retrieval-Augmented Generation)
 - Vector Stores: FAISS and OpenAI Vector Store
-- Hands-on: Build a minimal RAG app
+- Hands-on: Build simple Gradio and Streamlit LLM apps
 
 ## Notes
 
 - Session 8 is where students formally learn LLM API access — builds on the light GitHub Models preview from Session 7
 - Provider swap pattern: show how changing `base_url` + `model` switches between OpenAI, Claude, and Ollama
+- Streaming is part of the main app-building path, not an optional side topic
 - RAG hands-on scoped to one outcome: a working pipeline over a small document set (chunk → embed → FAISS → retrieve → generate)
+- UI progression: small Gradio demo first, then a Streamlit RAG app as the main build
 - Hybrid search (BM25 + semantic + RRF) and Agentic RAG covered conceptually as production best practice / Session 9 preview
 - `responses api and vector store.md` (in Session 9 folder) contains reference code for the Responses API and vector stores — §1–3 and §5–8 belong to Session 8; §4 (Agents SDK) belongs to Session 9
 
 ## Planned Notebooks
 
 - `notebooks/01_llm_api_access.ipynb` — OpenAI Chat Completions, Responses API, Claude API, Ollama; provider swap pattern
-- `notebooks/02_rag_with_faiss.ipynb` — chunking, sentence-transformers embeddings, FAISS index, RAG query pipeline, RAG vs. no-RAG comparison
+- `notebooks/02_streaming_responses.ipynb` — Responses API streaming, event loops, and generator pattern for apps
+- `notebooks/03_rag_with_pdfs_and_faiss.ipynb` — PDF parsing, chunking, embeddings, FAISS index, RAG query pipeline, RAG vs. no-RAG comparison
+- `notebooks/04_gradio_chat_demo.ipynb` — small streaming chat demo with Gradio
+- `05_streamlit_rag_app.py` — main app build: streaming RAG chat over the Session 8 PDF corpus
 
 ## References
 
