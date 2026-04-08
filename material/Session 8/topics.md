@@ -22,10 +22,11 @@ topics:
 ## Planned Notebooks
 
 - `notebooks/01_llm_api_access.ipynb` — OpenAI Chat Completions, Responses API, Claude API, Ollama; provider swap pattern
-- `notebooks/02_streaming_responses.ipynb` — Responses API streaming, event loops, and generator pattern for apps
-- `notebooks/03_rag_with_pdfs_and_faiss.ipynb` — PDF parsing, chunking, embeddings, FAISS index, RAG query pipeline, RAG vs. no-RAG comparison
-- `notebooks/04_gradio_chat_demo.ipynb` — small streaming chat demo with Gradio
-- `05_streamlit_rag_app.py` — main app build: streaming RAG chat over the Session 8 PDF corpus
+- `notebooks/02_embeddings_and_similarity.ipynb` — embedding creation, cosine similarity, and tiny semantic search before RAG
+- `notebooks/03_streaming_responses.ipynb` — Responses API streaming, event loops, and generator pattern for apps
+- `notebooks/04_rag_with_pdfs_and_faiss.ipynb` — PDF parsing, chunking, embeddings, FAISS index, RAG query pipeline, RAG vs. no-RAG comparison
+- `notebooks/05_gradio_chat_demo.ipynb` — small streaming chat demo with Gradio
+- `06_streamlit_rag_app.py` — main app build: streaming RAG chat over the Session 8 PDF corpus
 
 ## References
 
