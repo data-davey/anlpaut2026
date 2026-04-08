@@ -1,3 +1,7 @@
+
+# to run, use the following command from the root of the repository:
+# streamlit run material/Session\ 8/06_streamlit_rag_app.py
+
 from __future__ import annotations
 
 import os
@@ -102,8 +106,24 @@ def stream_grounded_answer(question: str, top_k: int = 4):
     stream = client.responses.create(
         model=GENERATION_MODEL,
         instructions=(
-            "Use only the retrieved context. If the answer is not supported by the context, "
-            "say you do not have enough information."
+            # "Use only the retrieved context. If the answer is not supported by the context, "
+            # "say you do not have enough information."
+
+            """
+            # PURPOSE:
+            You are a friendly assistant that answer questions from company's HR policy and information documents.
+            Answer the query using only the sources provided below in a friendly and concise bulleted manner.
+            Answer ONLY with the facts listed in the list of sources below.
+            If there isn't enough information below, say you don't know.
+            Do not generate answers that don't use the sources below.
+
+            # CITATION:
+            - Always include source in brackets in the response from list of sources below.
+            - If you use multiple sources, cite them all in brackets in the response.
+            - include a list of sources as a foot note in bullet points format.
+            - Only include sources that were used to generate the answer.
+            - dont display any sources or sources section if it was not cited in response
+            """
         ),
         input=prompt,
         stream=True,
