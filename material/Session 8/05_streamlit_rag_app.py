@@ -31,6 +31,8 @@ from rag_utils import (
 
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+OPENAI_ORG_ID = os.getenv("OPENAI_ORG_ID")
+OPENAI_PROJECT_ID = os.getenv("OPENAI_PROJECT_ID")
 GENERATION_MODEL = os.getenv("SESSION8_MODEL", "gpt-4o-mini")
 EMBEDDING_MODEL = os.getenv("SESSION8_EMBEDDING_MODEL", "text-embedding-3-small")
 
@@ -38,13 +40,21 @@ EMBEDDING_MODEL = os.getenv("SESSION8_EMBEDDING_MODEL", "text-embedding-3-small"
 def get_generation_client() -> OpenAI | None:
     if not OPENAI_API_KEY:
         return None
-    return OpenAI(api_key=OPENAI_API_KEY)
+    return OpenAI(
+        api_key=OPENAI_API_KEY,
+        organization=OPENAI_ORG_ID,
+        project=OPENAI_PROJECT_ID,
+    )
 
 
 @st.cache_resource
 def load_embedding_backend():
     if OPENAI_API_KEY:
-        return "openai", OpenAI(api_key=OPENAI_API_KEY)
+        return "openai", OpenAI(
+            api_key=OPENAI_API_KEY,
+            organization=OPENAI_ORG_ID,
+            project=OPENAI_PROJECT_ID,
+        )
     return "local", SentenceTransformer("all-MiniLM-L6-v2")
 
 

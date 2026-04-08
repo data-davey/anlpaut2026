@@ -127,6 +127,8 @@ The session is OpenAI SDK-first, but references multiple providers.
 Core:
 
 - `OPENAI_API_KEY`
+- `OPENAI_ORG_ID`
+- `OPENAI_PROJECT_ID`
 
 Optional:
 

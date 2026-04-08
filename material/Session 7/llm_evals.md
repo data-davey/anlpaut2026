@@ -515,9 +515,14 @@ Instead of using human annotators or fixed metrics, use a strong LLM (e.g. GPT-4
 ### 7.3 LLM-as-Judge Implementation Pattern
 
 ```python
+import os
 from openai import OpenAI
 
-client = OpenAI()
+client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY"),
+    organization=os.getenv("OPENAI_ORG_ID"),
+    project=os.getenv("OPENAI_PROJECT_ID"),
+)
 
 def llm_judge(question: str, response: str, criteria: str) -> dict:
     prompt = f"""You are an expert evaluator. Score the following response.
@@ -572,9 +577,14 @@ Before writing any code, decide what you are measuring. Common dimensions:
 
 ```python
 import json
+import os
 from openai import OpenAI
 
-client = OpenAI()
+client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY"),
+    organization=os.getenv("OPENAI_ORG_ID"),
+    project=os.getenv("OPENAI_PROJECT_ID"),
+)
 
 # 1. Define test cases: input + expected output
 test_cases = [

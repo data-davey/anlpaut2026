@@ -17,6 +17,7 @@ nltk
 rouge_score
 bert-score
 openai
+pydantic
 deepeval
 anthropic
 pypdf
