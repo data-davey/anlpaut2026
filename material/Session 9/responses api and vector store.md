@@ -18,9 +18,14 @@ The OpenAI Responses API is a cleaner alternative to Chat Completions API with s
 
 ### Basic Usage - Python
 ```python
+import os
 from openai import OpenAI
 
-client = OpenAI()
+client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY"),
+    organization=os.getenv("OPENAI_ORG_ID"),
+    project=os.getenv("OPENAI_PROJECT_ID"),
+)
 
 # Simple text generation
 response = client.responses.create(
@@ -100,9 +105,14 @@ print(f"Name: {data['name']}, Age: {data['age']}")
 ### Multi-turn Conversations with Streaming
 ```python
 import json
+import os
 from openai import OpenAI
 
-client = OpenAI()
+client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY"),
+    organization=os.getenv("OPENAI_ORG_ID"),
+    project=os.getenv("OPENAI_PROJECT_ID"),
+)
 
 # For multi-turn conversations with tools
 messages = [
@@ -200,9 +210,14 @@ response = client.responses.create(
 
 ### Text-Only Messages
 ```python
+import os
 from openai import OpenAI
 
-client = OpenAI()
+client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY"),
+    organization=os.getenv("OPENAI_ORG_ID"),
+    project=os.getenv("OPENAI_PROJECT_ID"),
+)
 
 response = client.responses.create(
     model="gpt-5",
@@ -258,6 +273,7 @@ print(response.output_text)
 ### Base64 Encoding for Local Images
 ```python
 import base64
+import os
 from openai import OpenAI
 
 def encode_image(image_path):
@@ -266,7 +282,11 @@ def encode_image(image_path):
         return base64.b64encode(image_file.read()).decode('utf-8')
 
 # Load and encode local image
-client = OpenAI()
+client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY"),
+    organization=os.getenv("OPENAI_ORG_ID"),
+    project=os.getenv("OPENAI_PROJECT_ID"),
+)
 base64_image = encode_image("./path/to/local/image.jpg")
 
 response = client.responses.create(
@@ -325,7 +345,11 @@ import os
 
 class OpenAIAgent:
     def __init__(self, api_key: str = None, model: str = "gpt-5", instructions: str = ""):
-        self.client = OpenAI(api_key=api_key or os.getenv('OPENAI_API_KEY'))
+        self.client = OpenAI(
+            api_key=api_key or os.getenv("OPENAI_API_KEY"),
+            organization=os.getenv("OPENAI_ORG_ID"),
+            project=os.getenv("OPENAI_PROJECT_ID"),
+        )
         self.model = model
         self.instructions = instructions
         self.conversation_history = []
@@ -471,9 +495,14 @@ print(response)
 
 ### Creating a Vector Store
 ```python
+import os
 from openai import OpenAI
 
-client = OpenAI()
+client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY"),
+    organization=os.getenv("OPENAI_ORG_ID"),
+    project=os.getenv("OPENAI_PROJECT_ID"),
+)
 
 # Create a vector store
 vector_store = client.beta.vector_stores.create(

@@ -105,3 +105,9 @@ When the user gives standing instructions or asks to "remember" something:
 2. **Also update this `AGENTS.md` file** (or another tracked repo file) so the instruction is visible to all tools and collaborators
 
 `CLAUDE.md` is gitignored in this repo — use `AGENTS.md` as the canonical place for tracked AI assistant instructions.
+
+### Additional Standing Instructions
+
+- Treat `material/Session 8/.old/` as archival reference material only.
+- Do **not** include files from `material/Session 8/.old/` in future commits unless the user explicitly asks for that folder to be committed.
+- Whenever code uses the OpenAI SDK with `OPENAI_API_KEY`, also pass `OPENAI_ORG_ID` and `OPENAI_PROJECT_ID` to the client when those environment variables are available.

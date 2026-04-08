@@ -17,4 +17,14 @@ nltk
 rouge_score
 bert-score
 openai
+pydantic
 deepeval
+anthropic
+pypdf
+sentence-transformers
+faiss-cpu
+streamlit
+anthropic
+pypdf
+sentence-transformers
+faiss-cpu
