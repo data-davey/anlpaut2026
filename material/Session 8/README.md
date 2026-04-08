@@ -33,6 +33,7 @@ material/Session 8/
 ├── README.md
 ├── data/
 │   ├── README.md
+│   ├── images/
 │   ├── questions.json
 │   └── pdfs/
 ├── helpers/
@@ -59,6 +60,7 @@ This notebook introduces:
 - Chat Completions
 - Responses API
 - structured output
+- image and multimodal input
 - provider swap patterns for GitHub Models and Ollama
 - a short Claude comparison
 
