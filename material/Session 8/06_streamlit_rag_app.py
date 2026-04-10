@@ -40,6 +40,22 @@ OPENAI_PROJECT_ID = os.getenv("OPENAI_PROJECT_ID")
 GENERATION_MODEL = os.getenv("SESSION8_MODEL", "gpt-4o-mini")
 EMBEDDING_MODEL = os.getenv("SESSION8_EMBEDDING_MODEL", "text-embedding-3-small")
 
+DEFAULT_SYSTEM_PROMPT = """\
+# PURPOSE:
+You are a friendly assistant that answers questions from the company's HR policy and information documents.
+Answer the query using only the sources provided below in a friendly and concise bulleted manner.
+Answer ONLY with the facts listed in the list of sources below.
+If there isn't enough information below, say you don't know.
+Do not generate answers that don't use the sources below.
+
+# CITATION:
+- Always include source in brackets in the response from the list of sources below.
+- If you use multiple sources, cite them all in brackets in the response.
+- Include a list of sources as a footnote in bullet-point format.
+- Only include sources that were used to generate the answer.
+- Don't display any sources section if nothing was cited in the response.\
+"""
+
 
 def get_generation_client() -> OpenAI | None:
     if not OPENAI_API_KEY:
@@ -94,7 +110,7 @@ def retrieve_chunks(question: str, top_k: int = 4) -> list[dict]:
     return [documents[idx] for idx in indices[0]]
 
 
-def stream_grounded_answer(question: str, top_k: int = 4):
+def stream_grounded_answer(question: str, top_k: int = 4, system_prompt: str = DEFAULT_SYSTEM_PROMPT):
     client = get_generation_client()
     if client is None:
         yield "OPENAI_API_KEY is required for the Streamlit RAG app."
@@ -105,26 +121,7 @@ def stream_grounded_answer(question: str, top_k: int = 4):
 
     stream = client.responses.create(
         model=GENERATION_MODEL,
-        instructions=(
-            # "Use only the retrieved context. If the answer is not supported by the context, "
-            # "say you do not have enough information."
-
-            """
-            # PURPOSE:
-            You are a friendly assistant that answer questions from company's HR policy and information documents.
-            Answer the query using only the sources provided below in a friendly and concise bulleted manner.
-            Answer ONLY with the facts listed in the list of sources below.
-            If there isn't enough information below, say you don't know.
-            Do not generate answers that don't use the sources below.
-
-            # CITATION:
-            - Always include source in brackets in the response from list of sources below.
-            - If you use multiple sources, cite them all in brackets in the response.
-            - include a list of sources as a foot note in bullet points format.
-            - Only include sources that were used to generate the answer.
-            - dont display any sources or sources section if it was not cited in response
-            """
-        ),
+        instructions=system_prompt,
         input=prompt,
         stream=True,
     )
@@ -138,8 +135,27 @@ st.set_page_config(page_title="Session 8 RAG App", page_icon=":books:")
 st.title("Session 8 Streamlit RAG App")
 st.caption("Streaming grounded answers over the Session 8 handbook and policy PDF corpus.")
 
+# ── Sidebar ───────────────────────────────────────────────────────────────────
 top_k = st.sidebar.slider("Top-k retrieved chunks", min_value=2, max_value=6, value=4)
 st.sidebar.markdown(f"Generation model: `{GENERATION_MODEL}`")
+
+st.sidebar.divider()
+
+if "system_prompt" not in st.session_state:
+    st.session_state.system_prompt = DEFAULT_SYSTEM_PROMPT
+
+edited_prompt = st.sidebar.text_area(
+    "System Prompt",
+    value=st.session_state.system_prompt,
+    height=340,
+    help="Edit the instructions sent to the model before every answer.",
+)
+if edited_prompt != st.session_state.system_prompt:
+    st.session_state.system_prompt = edited_prompt
+
+if st.sidebar.button("Reset to default"):
+    st.session_state.system_prompt = DEFAULT_SYSTEM_PROMPT
+    st.rerun()
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -161,7 +177,9 @@ if prompt := st.chat_input("Ask about the handbook or benefits documents"):
     st.session_state.last_sources = retrieved
 
     with st.chat_message("assistant"):
-        response_text = st.write_stream(stream_grounded_answer(prompt, top_k=top_k))
+        response_text = st.write_stream(
+            stream_grounded_answer(prompt, top_k=top_k, system_prompt=st.session_state.system_prompt)
+        )
 
     st.session_state.messages.append({"role": "assistant", "content": response_text})
 
