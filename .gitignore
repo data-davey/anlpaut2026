@@ -13,3 +13,4 @@ material/Session */archive/*
 **/notebooks/*.jsonl
 **/__pycache__/*
 **/*.pyc
+.streamlit/secrets.toml
