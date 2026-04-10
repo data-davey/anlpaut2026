@@ -44,8 +44,11 @@ material/Session 8/
 │   ├── 02_embeddings_and_similarity.ipynb
 │   ├── 03_streaming_responses.ipynb
 │   ├── 04_rag_with_pdfs_and_faiss.ipynb
-│   └── 05_gradio_chat_demo.ipynb
+│   ├── 05_gradio_chat_demo.ipynb
+│   └── 06_tool_use.ipynb
 ├── 06_streamlit_rag_app.py
+├── .streamlit/
+│   └── secrets.toml.example
 ├── scratchpad.md
 ├── topics.md
 └── vector_similarity.md
@@ -104,6 +107,18 @@ This notebook introduces:
 - how to connect streaming model output to a lightweight interface
 - how quickly an API call can become an interactive demo
 
+### `06_tool_use.ipynb`
+
+This notebook covers tool use and function calling:
+
+- anatomy of a tool definition (JSON schema)
+- a custom weather tool — the classic first example
+- the 4-step agentic loop: request → detect → execute → feed back
+- a `run_tool_loop` helper for multi-turn agentic conversations
+- built-in tools: `web_search` and `code_interpreter`
+- parallel tool calls — two tools in one turn
+- RAG as a tool call — the FAISS index wrapped as a function the model can invoke
+
 ### `06_streamlit_rag_app.py`
 
 This is the main app build for Session 8:
@@ -111,6 +126,7 @@ This is the main app build for Session 8:
 - a streaming chat interface in Streamlit
 - retrieval over the Session 8 PDF corpus
 - grounded answers with visible sources
+- editable system prompt in the sidebar with a reset-to-default button
 - a stronger end-to-end example than the Gradio demo
 
 ## Prerequisites
@@ -148,6 +164,17 @@ Optional:
 - `GITHUB_TOKEN` for GitHub Models
 - `ANTHROPIC_API_KEY` for Claude examples
 - Ollama running locally at `http://localhost:11434/v1`
+
+## Streamlit Secrets (for deployment)
+
+A secrets template is provided at `.streamlit/secrets.toml.example`. To use it locally or deploy to Streamlit Cloud:
+
+```bash
+cp .streamlit/secrets.toml.example .streamlit/secrets.toml
+# fill in your values — secrets.toml is gitignored
+```
+
+For Streamlit Cloud, paste the contents of the template into **App Settings → Secrets**.
 
 ## Running the Streamlit App
 
