@@ -27,6 +27,10 @@ Covers concepts with working code examples:
 3. Workflow patterns — prompt chaining, routing, parallelization, evaluator-optimizer
 4. MCP — concept, the M×N problem, and a minimal FastMCP server
 
+Windows note: the MCP example uses `NotebookSafeMCPServerStdio` so the
+subprocess demo works inside Jupyter/IPython kernels that expose notebook
+streams without a real `fileno()`.
+
 ### `notebooks/02_agent_with_tools.ipynb`
 
 Hands-on with the OpenAI Agents SDK:

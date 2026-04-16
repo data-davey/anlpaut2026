@@ -30,3 +30,4 @@ sentence-transformers
 faiss-cpu
 openai-agents
 mcp
+graphviz

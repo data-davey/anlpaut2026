@@ -1,0 +1,12 @@
+{
+	"servers": {
+		"ANLP Course Server": {
+			"type": "stdio",
+			"command": "c:\\\\git\\\\mdsiprojects\\\\anlpaut2026\\\\.venv\\\\Scripts\\\\python.exe",
+			"args": [
+				"C:\\\\git\\\\mdsiprojects\\\\anlpaut2026\\\\material\\\\Session 9\\\\notebooks\\\\mcp_course_server.py"
+			]
+		}
+	},
+	"inputs": []
+}
