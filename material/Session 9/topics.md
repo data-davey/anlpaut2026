@@ -23,8 +23,7 @@ topics:
 
 ## Planned Notebooks
 
-- `notebooks/01_agents_concepts.ipynb` — Agentic RAG recap; Anthropic workflow patterns in code; MCP concept and wiring
-- `notebooks/02_agent_with_tools.ipynb` — OpenAI Agents SDK: Agent, Runner, tools, handoffs, tracing; orchestrator-workers demo; reflection on tool description quality
+refer to [README.md](/material/Session%209/README.md)
 
 ## Industry State (2026) — Lecture Context
 
