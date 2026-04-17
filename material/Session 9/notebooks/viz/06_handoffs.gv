@@ -1,8 +1,0 @@
-
-    digraph G {
-        graph [splines=true];
-        node [fontname="Arial"];
-        edge [penwidth=1.5];
-    "__start__" [label="__start__", shape=ellipse, style=filled, fillcolor=lightblue, width=0.5, height=0.3];"__end__" [label="__end__", shape=ellipse, style=filled, fillcolor=lightblue, width=0.5, height=0.3];"Triage Router" [label="Triage Router", shape=box, style=filled, fillcolor=lightyellow, width=1.5, height=0.8];"Billing Specialist" [label="Billing Specialist", shape=box, style=filled, style=rounded, fillcolor=lightyellow, width=1.5, height=0.8];"Technical Support" [label="Technical Support", shape=box, style=filled, style=rounded, fillcolor=lightyellow, width=1.5, height=0.8];"__start__" -> "Triage Router";
-            "Triage Router" -> "Billing Specialist";
-            "Triage Router" -> "Technical Support";}
