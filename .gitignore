@@ -1,4 +1,5 @@
 material/Session */archive/*
+.venv/
 .env
 .env.*
 **/.claude/*
