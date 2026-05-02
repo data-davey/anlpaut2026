@@ -1,3 +1,54 @@
-* If anyone builds it, everyone dies (book): https://en.wikipedia.org/wiki/If_Anyone_Builds_It,_Everyone_Dies 
-* Tristan Harris on seeing the dangers of AI: https://www.ted.com/talks/tristan_harris_beyond_the_talk_tristan_harris_on_seeing_the_dangers_of_ai_clearly 
-* The dangers of unregulated AI Tristan Harris at the Daily Show: https://www.youtube.com/watch?v=675d_6WGPbo 
+Session 10 resources
+
+Guest lecture:
+- Julian Lee — AI without Security is a Liability
+
+Frameworks and governance:
+- NIST AI Risk Management Framework 1.0: https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10
+- NIST AI RMF 1.0 PDF: https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf
+- OWASP Top 10 for LLM Applications 2025: https://genai.owasp.org/resource/owasp-top-10-for-llm-applications-2025/
+- EU AI Act overview: https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai
+- UNESCO Recommendation on the Ethics of AI: https://www.unesco.org/en/legal-affairs/recommendation-ethics-artificial-intelligence
+
+Australian responsible AI:
+- Lee Hickin, Executive Director, National AI Centre: https://www.industry.gov.au/science-technology-and-innovation/technology/national-artificial-intelligence-centre/lee-hickin
+- Australia's AI Ethics Principles: https://www.industry.gov.au/publications/australias-ai-ethics-principles
+- Guidance for AI Adoption: https://www.industry.gov.au/publications/guidance-for-ai-adoption
+- Voluntary AI Safety Standard guardrails: https://www.industry.gov.au/publications/voluntary-ai-safety-standard/10-guardrails
+- Australian Government responsible use of AI policy: https://www.digital.gov.au/policy/ai/policy2
+
+Teaching tools:
+- Google Machine Learning glossary, fairness and bias terms: https://developers.google.com/machine-learning/glossary/fairness
+- Data Ethics Canvas, Open Data Institute: https://theodi.org/insights/tools/the-data-ethics-canvas-2021/
+- Consequence Scanning, Doteveryone: https://doteveryone.org.uk/project/consequence-scanning/
+
+Cases:
+- OAIC Bunnings facial-recognition determination factsheet: https://www.oaic.gov.au/__data/assets/pdf_file/0027/243936/Bunnings-determination-factsheet.pdf
+- ART Guidance and Appeals Panel decisions, Bunnings Group Limited and Privacy Commissioner: https://www.art.gov.au/about-us/our-role/guidance-and-appeals-panel-decisions
+- ABC News, Bunnings wins fight to use AI facial recognition tech: https://www.abc.net.au/news/2026-02-05/bunnings-wins-ai-facial-recognition-tech-fight/106309308
+- CHOICE, Kmart, Bunnings and The Good Guys using facial recognition technology in stores: https://www.choice.com.au/data-protection-and-privacy/data-collection-and-use/how-your-data-is-used/articles/kmart-bunnings-and-the-good-guys-using-facial-recognition-technology-in-store
+- FTC Rite Aid facial-recognition enforcement action, comparative international case: https://www.ftc.gov/news-events/news/press-releases/2023/12/rite-aid-banned-using-ai-facial-recognition-after-ftc-says-retailer-deployed-technology-without
+- Moffatt v. Air Canada, 2024 BCCRT 149: https://www.canlii.org/en/bc/bccrt/doc/2024/2024bccrt149/2024bccrt149.html
+- Matplotlib issue #31130: https://github.com/matplotlib/matplotlib/issues/31130
+- Matplotlib PR #31132: https://github.com/matplotlib/matplotlib/pull/31132
+- Scott Shambaugh, An AI Agent Published a Hit Piece on Me: https://theshamblog.com/an-ai-agent-published-a-hit-piece-on-me/
+- Scott Shambaugh, The Operator Came Forward: https://theshamblog.com/an-ai-agent-wrote-a-hit-piece-on-me-part-4/
+
+Frontier AI safety and model behaviour:
+- Claude's Constitution: https://www.anthropic.com/constitution
+- Anthropic, Claude's Constitution research post: https://www.anthropic.com/research/claudes-constitution
+
+Environmental impact:
+- Generative AI's environmental costs are soaring: https://www.nature.com/articles/d41586-024-00478-x
+- Will AI save the planet? Why the evidence is flawed: https://theconversation.com/will-ai-save-the-planet-why-the-evidence-is-flawed-240133
+
+Optional media and broader AI-risk context:
+- The AI Doc official trailer: https://www.youtube.com/watch?v=xkPbV3IRe4Y
+- If Anyone Builds It, Everyone Dies: https://en.wikipedia.org/wiki/If_Anyone_Builds_It,_Everyone_Dies
+- Tristan Harris on seeing the dangers of AI clearly: https://www.ted.com/talks/tristan_harris_beyond_the_talk_tristan_harris_on_seeing_the_dangers_of_ai_clearly
+- The dangers of unregulated AI — Tristan Harris at The Daily Show: https://www.youtube.com/watch?v=675d_6WGPbo
+
+Course links:
+- Session 7: LLM risks and evaluation
+- Session 8: RAG and LLM applications
+- Session 9: AI agents, tools, MCP, and human-in-the-loop workflows
